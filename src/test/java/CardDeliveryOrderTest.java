@@ -16,20 +16,18 @@ public class CardDeliveryOrderTest {
     }
 
     @Test
-    public void shouldCheckFromSubmission(){
+    public void shouldCheckFromSubmission() {
 
-        Selenide.open("http://localhost:9999/");                //открываем сраницу
-        $("[data-test-id=city] input").setValue("Астрахань");          //вводим город
+        Selenide.open("http://localhost:9999/");
+        $("[data-test-id=city] input").setValue("Астрахань");
+        $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         String date = generateDate(3);
-        $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT,Keys.HOME),Keys.BACK_SPACE);  //стираем дату
-        $("[data-test-id=date] input").setValue(date);         //вводим дату дотавки
-        $("[data-test-id=name] input").setValue("Пупкин Василий");     //вводим фамилию и имя
-        $("[data-test-id=phone] input").setValue("+79995673426");      //вводим телефон
-        $("[data-test-id=agreement]").click();                         //жмякаем чекбокс
-        $$("button").find(exactText("Забронировать")).click();         //жмякаем забронировать
-        $("[data-test-id=notification]").shouldBe(visible, Duration.ofSeconds(15)) .shouldHave(exactText("Успешно! " + "Встреча успешно забронирована на " + date));
-
-
+        $("[data-test-id=date] input").setValue(date);
+        $("[data-test-id=name] input").setValue("Пупкин Василий");
+        $("[data-test-id=phone] input").setValue("+79995673426");
+        $("[data-test-id=agreement]").click();
+        $$("button").find(exactText("Забронировать")).click();
+        $("[data-test-id=notification]").shouldBe(visible, Duration.ofSeconds(15)).shouldHave(exactText("Успешно! " + "Встреча успешно забронирована на " + date));
     }
 
 }
